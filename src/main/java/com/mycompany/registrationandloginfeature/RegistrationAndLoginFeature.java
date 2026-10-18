@@ -63,18 +63,31 @@ public class RegistrationAndLoginFeature {
         //Register user
            System.out.println("Registration successful!");
            
-           //login
-           System.out.println("Please enter your username to login:");
-           String loginUsername = input.nextLine();
-           
-           System.out.println("Please enter your password to login:");
-           String loginPassword = input.nextLine();
-           
-           //Check login status
-           boolean loginSuccessful = obj.loginUser(loginUsername, loginPassword);
-           
-           //Display login status
-           System.out.println(obj.returnLoginStatus(loginSuccessful));
+// Login
+    System.out.println("Please enter your username to login:");
+
+    String loginUsername = input.nextLine().trim();
+
+    System.out.println("Please enter your password to login:");
+
+    String loginPassword = input.nextLine().trim();
+
+    // Check the login details
+
+    boolean loginSuccessful =
+
+            loginUsername.equals(username.trim())
+
+            && loginPassword.equals(password.trim());
+
+    if (loginSuccessful) {
+        
+        System.out.println("Login successful!");
+        
+    } else {
+        System.out.println("Username or password incorrect, please try again.");
+        
+    }
 
         if (loginSuccessful) {
         
