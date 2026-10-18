@@ -75,5 +75,62 @@ public class RegistrationAndLoginFeature {
            
            //Display login status
            System.out.println(obj.returnLoginStatus(loginSuccessful));
+
+        if (loginSuccessful) {
+        
+            System.out.println("Welcome to QuickChat.");
+
+    int option = 0;
+
+    while (option != 3) {
+        System.out.println("\n1) Send Messages");
+        System.out.println("2) Show recently sent messages");
+        System.out.println("3) Quit");
+        System.out.print("Please select an option: ");
+
+        if (!input.hasNextInt()) {
+            System.out.println("Please enter a number.");
+            input.nextLine();
+            continue;
+        }
+
+        option = input.nextInt();
+        input.nextLine(); // Clear the input line
+
+        switch (option) {
+            case 1:
+                System.out.print("How many messages would you like to enter? ");
+
+                if (!input.hasNextInt()) {
+                    System.out.println("Please enter a valid number.");
+                    input.nextLine();
+                    break;
+                }
+
+                int numberOfMessages = input.nextInt();
+                input.nextLine();
+
+                if (numberOfMessages <= 0) {
+                    System.out.println("Please enter a number greater than zero.");
+                } else {
+                    System.out.println("You have selected "
+                            + numberOfMessages + " message(s).");
+                    // We will add the message-sending loop here next.
+                }
+                break;
+
+            case 2:
+                System.out.println("Coming Soon.");
+                break;
+
+            case 3:
+                System.out.println("Goodbye!");
+                break;
+
+            default:
+                System.out.println("Invalid option. Please choose 1, 2, or 3.");
+        }
     }
+}
+       }
 }
