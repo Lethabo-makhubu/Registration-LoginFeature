@@ -56,10 +56,10 @@ public class Message {
                 
         && recipient.matches("\\+27[0-9]{9}")) {
          return "Cell phone number successfully captured.";
-
+        }else{
+         return "Cell phone number is incorrectly formatted or does not contain an international code."
+                 + " Please correct the number and try again.";
         }
-
-        return "Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.";
 
     }
 
@@ -92,20 +92,15 @@ public class Message {
     // Check message length
 
     public String checkMessageLength() {
-
         if (message != null && message.length() <= 250) {
+        return "Message ready to send.";
+    } else {
+        int length = (message == null) ? 0 : message.length();
+        int excess = length - 250;
 
-            return "Message ready to send.";
-
-        }
-
-        int length = message == null ? 0 : message.length();
-
-        int excess = Math.max(0, length - 250);
-
-        return "Message exceeds 250 characters by "
-                + excess + "; please reduce the size.";
-
+        return "Message exceeds 250 characters by " + excess
+                + "; please reduce the size.";
+    }
     }
 
     // Return message ID

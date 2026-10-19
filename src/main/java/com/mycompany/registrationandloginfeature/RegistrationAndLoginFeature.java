@@ -155,24 +155,22 @@ public class RegistrationAndLoginFeature {
         Message newMessage = new Message(sentCount + 1, recipient, messageText);
 
         // Check the recipient number
+String recipientResult = newMessage.checkRecipientCell();
 
-        if (!newMessage.checkRecipientCell().equals("Cell phone number successfuly captured.")) {
+System.out.println("Validation result: " + recipientResult);
 
-            System.out.println("Invalid recipient number.");
-
-            continue;
-
-        }
+if (!recipientResult.equals("Cell phone number successfully captured.")) {
+    System.out.println("Invalid recipient number.");
+    continue;
+}
 
         // Check the message length
+String lengthResult = newMessage.checkMessageLength();
+System.out.println(lengthResult);
 
-        if (!newMessage.checkMessageLength().equals("Message ready to send")) {
-
-            System.out.println("Message is too long. Please enter a shorter message.");
-
-            continue;
-
-        }
+if (!lengthResult.equals("Message ready to send.")) {
+    continue;
+}
 
         // Ask what the user wants to do with the message
 
