@@ -4,6 +4,8 @@
 
 package com.mycompany.registrationandloginfeature;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -226,21 +228,22 @@ if (!lengthResult.equals("Message ready to send.")) {
 
             case 3:
 
-                if (storedCount < storeMessages.length) {
+ if (storedCount < storeMessages.length) {
 
-                    storeMessages[storedCount] = newMessage;
+    storeMessages[storedCount] = newMessage;
+    storedCount++;
 
-                    storedCount++;
+    saveStoredMessagesToJson();
 
-                    System.out.println("Message stored for later.");
+    System.out.println("Message stored for later.");
 
-                } else {
+} else {
 
-                    System.out.println("Stored message storage is full.");
+    System.out.println("Stored message storage is full.");
 
-                }
+}
 
-                break;
+break;
 
             default:
 
@@ -258,4 +261,55 @@ break;
     }
         }
        }
+       public static void saveStoredMessagesToJson() {
+
+    try (FileWriter writer = new FileWriter("messages.json")) {
+
+        writer.write("[\n");
+
+        for (int i = 0; i < storedCount; i++) {
+
+            Message msg = storeMessages[i];
+
+            writer.write("  {\n");
+            writer.write("    \"messageID\": \"" 
+                    + escapeJson(msg.getMessageID()) + "\",\n");
+            writer.write("    \"recipient\": \"" 
+                    + escapeJson(msg.getRecipient()) + "\",\n");
+            writer.write("    \"message\": \"" 
+                    + escapeJson(msg.getMessage()) + "\",\n");
+            writer.write("    \"messageHash\": \"" 
+                    + escapeJson(msg.getMessageHash()) + "\",\n");
+            writer.write("    \"messageNumber\": " 
+                    + msg.getMessageNumber() + "\n");
+            writer.write("  }");
+
+            if (i < storedCount - 1) {
+                writer.write(",");
+            }
+
+            writer.write("\n");
+        }
+
+        writer.write("]\n");
+
+        System.out.println("Messages saved to messages.json.");
+
+    } catch (IOException e) {
+        System.out.println("Error saving JSON: " + e.getMessage());
+    }
+}
+
+public static String escapeJson(String text) {
+
+    if (text == null) {
+        return "";
+    }
+
+    return text.replace("\\", "\\\\")
+               .replace("\"", "\\\"")
+               .replace("\n", "\\n")
+               .replace("\r", "\\r")
+               .replace("\t", "\\t");
+}
 }
