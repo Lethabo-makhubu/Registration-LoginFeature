@@ -146,4 +146,14 @@ public class RegistrationAndLoginFeature {
     }
 }
        }
+       
+       //Store messages that have been sent
+       static Message[] sentMessages = new Message[100];
+       
+       //Stores message save for later
+       static Message[] storeMessages = new Message[100];
+       
+       //counts how many messages are in each array
+       static int sentCount = 0;
+       static int storedCount = 0;
 }

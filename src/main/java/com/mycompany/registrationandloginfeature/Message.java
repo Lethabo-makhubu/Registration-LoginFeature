@@ -29,9 +29,8 @@ public class Message {
 
         Random random = new Random();
 
-    long id = 1000000000L
-
-                + (long) (random.nextDouble() * 9000000000L);
+        long id = 1000000000L
+        + (long) (random.nextDouble() * 9000000000L);
 
                 
 
@@ -108,7 +107,6 @@ public class Message {
         int excess = Math.max(0, length - 250);
 
         return "Message exceeds 250 characters by "
-
                 + excess + "; please reduce the size.";
 
     }
@@ -142,7 +140,6 @@ public class Message {
     public String getMessageHash() {
 
         return messageHash;
-
     }
 
     // Return message number
