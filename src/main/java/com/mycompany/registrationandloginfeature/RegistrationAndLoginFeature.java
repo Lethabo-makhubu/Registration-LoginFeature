@@ -11,6 +11,16 @@ import java.util.Scanner;
  * @author Student
  */
 public class RegistrationAndLoginFeature {
+    
+              //Store messages that have been sent
+       static Message[] sentMessages = new Message[100];
+       
+       //Stores message save for later
+       static Message[] storeMessages = new Message[100];
+       
+       //counts how many messages are in each array
+       static int sentCount = 0;
+       static int storedCount = 0;
 
        public static void main(String[] args) {
         
@@ -89,10 +99,12 @@ public class RegistrationAndLoginFeature {
         
     }
 
+
         if (loginSuccessful) {
         
             System.out.println("Welcome to QuickChat.");
 
+       
     int option = 0;
 
     while (option != 3) {
@@ -124,36 +136,128 @@ public class RegistrationAndLoginFeature {
                 input.nextLine();
 
                 if (numberOfMessages <= 0) {
-                    System.out.println("Please enter a number greater than zero.");
+    System.out.println("Please enter a number greater than zero.");
+} else if (sentCount + numberOfMessages > sentMessages.length) {
+    System.out.println("You cannot store that many messages.");
+} else {
+
+    for (int i = 0; i < numberOfMessages; i++) {
+
+        System.out.println("\nMessage " + (i + 1));
+
+        System.out.print("Enter recipient cellphone number: ");
+        String recipient = input.nextLine();
+
+        System.out.print("Enter your message: ");
+        String messageText = input.nextLine();
+
+        // Create a message object
+        Message newMessage = new Message(sentCount + 1, recipient, messageText);
+
+        // Check the recipient number
+
+        if (!newMessage.checkRecipientCell().equals("Cell phone number successfuly captured.")) {
+
+            System.out.println("Invalid recipient number.");
+
+            continue;
+
+        }
+
+        // Check the message length
+
+        if (!newMessage.checkMessageLength().equals("Message ready to send")) {
+
+            System.out.println("Message is too long. Please enter a shorter message.");
+
+            continue;
+
+        }
+
+        // Ask what the user wants to do with the message
+
+        System.out.println("\nChoose an action:");
+
+        System.out.println("1. Send message");
+
+        System.out.println("2. Disregard message");
+
+        System.out.println("3. Store message for later");
+
+        System.out.print("Enter your choice: ");
+
+        if (!input.hasNextInt()) {
+
+            System.out.println("Please enter a valid number.");
+
+            input.nextLine();
+
+            continue;
+
+        }
+
+        int action = input.nextInt();
+
+        input.nextLine();
+
+        switch (action) {
+
+            case 1:
+
+                if (sentCount < sentMessages.length) {
+
+                    sentMessages[sentCount] = newMessage;
+
+                    sentCount++;
+
+                    System.out.println("Message sent successfully!");
+
                 } else {
-                    System.out.println("You have selected "
-                            + numberOfMessages + " message(s).");
-                    // We will add the message-sending loop here next.
+
+                    System.out.println("Sent message storage is full.");
+
                 }
+
                 break;
 
             case 2:
-                System.out.println("Coming Soon.");
+
+                System.out.println("Message disregarded.");
+
                 break;
 
             case 3:
-                System.out.println("Goodbye!");
+
+                if (storedCount < storeMessages.length) {
+
+                    storeMessages[storedCount] = newMessage;
+
+                    storedCount++;
+
+                    System.out.println("Message stored for later.");
+
+                } else {
+
+                    System.out.println("Stored message storage is full.");
+
+                }
+
                 break;
 
             default:
-                System.out.println("Invalid option. Please choose 1, 2, or 3.");
+
+                System.out.println("Invalid choice. Please choose 1, 2, or 3.");
+     
+
         }
+
     }
+
 }
+
+        }
+break;
+    }
+        }
        }
-       
-       //Store messages that have been sent
-       static Message[] sentMessages = new Message[100];
-       
-       //Stores message save for later
-       static Message[] storeMessages = new Message[100];
-       
-       //counts how many messages are in each array
-       static int sentCount = 0;
-       static int storedCount = 0;
 }

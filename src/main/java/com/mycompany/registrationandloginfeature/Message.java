@@ -52,13 +52,10 @@ public class Message {
 
     public String checkRecipientCell() {
 
-        if (recipient != null
-
-                && recipient.matches("^\\+\\d{1,3}\\d{1,10}$")
-
-                && recipient.length() <= 13) {
-
-            return "Cell phone number successfully captured.";
+        if (recipient != null    
+                
+        && recipient.matches("\\+27[0-9]{9}")) {
+         return "Cell phone number successfully captured.";
 
         }
 
