@@ -119,12 +119,13 @@ static int disregardedCount = 0;
        
     int option = 0;
 
-while (option != 5) {
+while (option != 6) {
     System.out.println("\n1) Send Messages");
     System.out.println("2) Show recently sent messages");
     System.out.println("3) Stored Messages");
     System.out.println("4) Search Message by ID");
-    System.out.println("5) Quit");
+    System.out.println("5) Search Messages by Recipient");
+    System.out.println("6) Quit");
     System.out.println("Total messages sent: " + sentCount);
     System.out.print("Please select an option: ");
 
@@ -270,6 +271,15 @@ case 4:
     break;
 
 case 5:
+
+    System.out.print("Enter recipient cellphone number: ");
+    String searchRecipient = input.nextLine();
+
+    searchMessagesByRecipient(searchRecipient);
+
+    break;
+
+case 6:
 
     System.out.println("Goodbye!");
 
@@ -463,6 +473,40 @@ public static void searchMessageByID(String searchID) {
 
     if (!found) {
         System.out.println("Message ID not found.");
+    }
+}
+public static void searchMessagesByRecipient(String recipient) {
+
+    boolean found = false;
+
+    // Search sent messages
+    for (int i = 0; i < sentCount; i++) {
+
+        if (sentMessages[i].getRecipient().equals(recipient)) {
+
+            System.out.println("\nMessage found!");
+            System.out.println("Message ID: " + sentMessages[i].getMessageID());
+            System.out.println("Message: " + sentMessages[i].getMessage());
+
+            found = true;
+        }
+    }
+
+    // Search stored messages
+    for (int i = 0; i < storedCount; i++) {
+
+        if (storeMessages[i].getRecipient().equals(recipient)) {
+
+            System.out.println("\nMessage found!");
+            System.out.println("Message ID: " + storeMessages[i].getMessageID());
+            System.out.println("Message: " + storeMessages[i].getMessage());
+
+            found = true;
+        }
+    }
+
+    if (!found) {
+        System.out.println("No messages found for this recipient.");
     }
 }
 }
