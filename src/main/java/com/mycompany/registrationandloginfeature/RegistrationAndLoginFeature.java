@@ -212,80 +212,64 @@ if (!lengthResult.equals("Message ready to send.")) {
 
         input.nextLine();
 
-        switch (action) {
+       
+String result = newMessage.SentMessage(action);
 
-case 1:
+System.out.println(result);
 
-    if (sentCount < sentMessages.length) {
 
-        sentMessages[sentCount] = newMessage;
+if (action == 1 && result.equals("Message successfully sent.")) {
 
-        sentCount++;
+    System.out.println("Message ID: " + newMessage.getMessageID());
 
-        System.out.println("Message successfully sent.");
+    System.out.println("Message Hash: " + newMessage.getMessageHash());
 
-        System.out.println("Message ID: " + newMessage.getMessageID());
+    System.out.println("Recipient: " + newMessage.getRecipient());
 
-        System.out.println("Message Hash: " + newMessage.getMessageHash());
+    System.out.println("Message: " + newMessage.getMessage());
 
-        System.out.println("Recipient: " + newMessage.getRecipient());
+}
 
-        System.out.println("Message: " + newMessage.getMessage());
+    } // Ends the for loop
 
-    } else {
+} // Ends the else block
 
-        System.out.println("Sent message storage is full.");
+break;
 
-    }
+case 2:
+
+    printMessages();
 
     break;
 
-            case 2:
-
-                System.out.println("Message disregarded.");
-
-                break;
-
-            case 3:
-
- if (storedCount < storeMessages.length) {
-
-    storeMessages[storedCount] = newMessage;
-    storedCount++;
-
-    saveStoredMessagesToJson();
-
-    System.out.println("Message stored for later.");
-
-} else {
-
-    System.out.println("Stored message storage is full.");
-
-}
-
-break;
-
-            default:
-
-                System.out.println("Invalid choice. Please choose 1, 2, or 3.");
-     
-
-        }
-
-    }
-
-}
-break;
-
-        case 2:
-            System.out.println("Coming Soon.");
-            break;
-
-        }
-break;
+} // Ends switch(option)
     }
         }
        }
+       
+public static void printMessages() {
+
+    if (sentCount == 0) {
+        System.out.println("No messages have been sent yet.");
+        return;
+    }
+
+    System.out.println("\n========== SENT MESSAGES ==========");
+
+    for (int i = 0; i < sentCount; i++) {
+
+        Message msg = sentMessages[i];
+
+        System.out.println("\nMessage " + (i + 1));
+        System.out.println("Message ID: " + msg.getMessageID());
+        System.out.println("Message Hash: " + msg.getMessageHash());
+        System.out.println("Recipient: " + msg.getRecipient());
+        System.out.println("Message: " + msg.getMessage());
+    }
+
+    System.out.println("\nTotal messages sent: " + sentCount);
+}
+
        public static void saveStoredMessagesToJson() {
 
     try (FileWriter writer = new FileWriter("messages.json")) {
