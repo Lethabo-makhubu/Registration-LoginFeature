@@ -112,6 +112,7 @@ public class RegistrationAndLoginFeature {
     while (option != 3) {
         System.out.println("\n1) Send Messages");
         System.out.println("2) Show recently sent messages");
+        System.out.println("Total messages sent: " + sentCount);
         System.out.println("3) Quit");
         System.out.print("Please select an option: ");
 
