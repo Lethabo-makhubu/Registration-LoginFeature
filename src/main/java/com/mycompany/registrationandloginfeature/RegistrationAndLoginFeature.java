@@ -119,14 +119,15 @@ static int disregardedCount = 0;
        
     int option = 0;
 
-while (option != 7) {
+while (option != 8) {
     System.out.println("\n1) Send Messages");
     System.out.println("2) Show recently sent messages");
     System.out.println("3) Stored Messages");
     System.out.println("4) Search Message by ID");
     System.out.println("5) Search Messages by Recipient");
     System.out.println("6) Delete Message by Hash");
-    System.out.println("7) Quit");
+    System.out.println("7) Display Message Report");
+    System.out.println("8) Quit");
     System.out.println("Total messages sent: " + sentCount);
     System.out.print("Please select an option: ");
 
@@ -290,6 +291,12 @@ case 6:
     break;
 
 case 7:
+
+    displayMessageReport();
+
+    break;
+
+case 8:
 
     System.out.println("Goodbye!");
 
@@ -552,5 +559,32 @@ public static void deleteMessageByHash(String deleteHash) {
     if (!found) {
         System.out.println("Message hash not found.");
     }
+}
+public static void displayMessageReport() {
+
+    System.out.println("\n========== MESSAGE REPORT ==========");
+
+    System.out.println("Total messages sent: " + sentCount);
+
+    System.out.println("\n--- Sent Messages ---");
+
+    if (sentCount == 0) {
+        System.out.println("No sent messages.");
+    }
+
+    for (int i = 0; i < sentCount; i++) {
+
+        System.out.println("Message ID: " + sentMessages[i].getMessageID());
+        System.out.println("Message Hash: " + sentMessages[i].getMessageHash());
+        System.out.println("Recipient: " + sentMessages[i].getRecipient());
+        System.out.println("Message: " + sentMessages[i].getMessage());
+
+        System.out.println("--------------------------------");
+    }
+
+    System.out.println("\nTotal stored messages: " + storedCount);
+    System.out.println("Total disregarded messages: " + disregardedCount);
+
+    System.out.println("====================================");
 }
 }
