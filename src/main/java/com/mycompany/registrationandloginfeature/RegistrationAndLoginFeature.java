@@ -398,4 +398,27 @@ public static void printStoredMessages() {
         System.out.println("-------------------------");
     }
 }
+public static void displayLongestMessage() {
+
+    if (storedCount == 0) {
+        System.out.println("No stored messages available.");
+        return;
+    }
+
+    Message longestMessage = storeMessages[0];
+
+    for (int i = 1; i < storedCount; i++) {
+
+        if (storeMessages[i].getMessage().length()
+                > longestMessage.getMessage().length()) {
+
+            longestMessage = storeMessages[i];
+        }
+        displayLongestMessage();
+    }
+
+    System.out.println("\n--- Longest Stored Message ---");
+    System.out.println("Message: " + longestMessage.getMessage());
+    System.out.println("Length: " + longestMessage.getMessage().length());
+}
 }
