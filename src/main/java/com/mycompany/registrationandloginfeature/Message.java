@@ -65,29 +65,28 @@ public class Message {
 
     // Create the message hash
 
-    public String createMessageHash() {
+public String createMessageHash() {
 
-        if (messageID == null || message == null || message.trim().isEmpty()) {
-
-            return "";
-
-        }
-
-        String[] words = message.trim().split("\\s+");
-
-        String firstWord = words[0];
-
-        String lastWord = words[words.length - 1];
-
-        String firstTwoIDDigits = messageID.substring(0, 2);
-
-        return (firstTwoIDDigits + ":"
-
-                + messageNumber + ":"
-
-                + firstWord + lastWord).toUpperCase();
-
+    if (messageID == null || message == null || message.trim().isEmpty()) {
+        return "";
     }
+
+    String[] words = message.trim().split("\\s+");
+
+    String firstWord = words[0];
+    String lastWord = words[words.length - 1];
+
+    // Remove punctuation from the first and last words
+    firstWord = firstWord.replaceAll("[^a-zA-Z0-9]", "");
+    lastWord = lastWord.replaceAll("[^a-zA-Z0-9]", "");
+
+    String firstTwoIDDigits = messageID.substring(0, 2);
+
+    return (firstTwoIDDigits + ":"
+            + messageNumber + ":"
+            + firstWord + lastWord).toUpperCase();
+}
+    
 
     // Check message length
 
@@ -141,5 +140,9 @@ public class Message {
         return messageNumber;
 
     }
+    
+    public int returnTotalMessages() {
+       return RegistrationAndLoginFeature.sentCount;
+    }    
     
 }
