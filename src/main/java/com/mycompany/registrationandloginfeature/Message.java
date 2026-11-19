@@ -144,5 +144,48 @@ public String createMessageHash() {
     public int returnTotalMessages() {
        return RegistrationAndLoginFeature.sentCount;
     }    
-    
+    // Send, store, or disregard a message
+public String SentMessage(int choice) {
+
+    switch (choice) {
+
+        case 1:
+            if (RegistrationAndLoginFeature.sentCount
+                    < RegistrationAndLoginFeature.sentMessages.length) {
+
+                RegistrationAndLoginFeature.sentMessages[
+                        RegistrationAndLoginFeature.sentCount] = this;
+
+                RegistrationAndLoginFeature.sentCount++;
+
+                return "Message successfully sent.";
+
+            } else {
+                return "Sent message storage is full.";
+            }
+
+        case 2:
+            return "Message disregarded.";
+
+        case 3:
+            if (RegistrationAndLoginFeature.storedCount
+                    < RegistrationAndLoginFeature.storeMessages.length) {
+
+                RegistrationAndLoginFeature.storeMessages[
+                        RegistrationAndLoginFeature.storedCount] = this;
+
+                RegistrationAndLoginFeature.storedCount++;
+
+                RegistrationAndLoginFeature.saveStoredMessagesToJson();
+
+                return "Message successfully stored.";
+
+            } else {
+                return "Stored message storage is full.";
+            }
+
+        default:
+            return "Invalid choice. Please choose 1, 2, or 3.";
+    }
+}
 }
