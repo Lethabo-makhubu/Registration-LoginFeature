@@ -27,14 +27,20 @@ public class Message {
 
         // Generate a random 10-digit message ID
 
-        Random random = new Random();
 
-        long id = 1000000000L
-        + (long) (random.nextDouble() * 9000000000L);
+// Generate a random 10-digit message ID using string manipulation
 
-                
+Random random = new Random();
 
-        this.messageID = String.valueOf(id);
+StringBuilder id = new StringBuilder();
+
+id.append(random.nextInt(9) + 1);
+
+for (int i = 1; i < 10; i++) {
+    id.append(random.nextInt(10));
+}
+
+this.messageID = id.toString();
 
         this.messageHash = createMessageHash();
 
