@@ -213,23 +213,31 @@ if (!lengthResult.equals("Message ready to send.")) {
 
         switch (action) {
 
-            case 1:
+case 1:
 
-                if (sentCount < sentMessages.length) {
+    if (sentCount < sentMessages.length) {
 
-                    sentMessages[sentCount] = newMessage;
+        sentMessages[sentCount] = newMessage;
 
-                    sentCount++;
+        sentCount++;
 
-                    System.out.println("Message sent successfully!");
+        System.out.println("Message successfully sent.");
 
-                } else {
+        System.out.println("Message ID: " + newMessage.getMessageID());
 
-                    System.out.println("Sent message storage is full.");
+        System.out.println("Message Hash: " + newMessage.getMessageHash());
 
-                }
+        System.out.println("Recipient: " + newMessage.getRecipient());
 
-                break;
+        System.out.println("Message: " + newMessage.getMessage());
+
+    } else {
+
+        System.out.println("Sent message storage is full.");
+
+    }
+
+    break;
 
             case 2:
 
