@@ -267,7 +267,10 @@ public static void printMessages() {
         System.out.println("Message: " + msg.getMessage());
     }
 
-    System.out.println("\nTotal messages sent: " + sentCount);
+Message messageCounter = new Message(0, "", "");
+
+System.out.println("Total messages sent: "
+        + messageCounter.returnTotalMessages());
 }
 
        public static void saveStoredMessagesToJson() {
