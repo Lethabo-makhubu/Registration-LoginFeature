@@ -14,15 +14,25 @@ import java.util.Scanner;
  */
 public class RegistrationAndLoginFeature {
     
-              //Store messages that have been sent
-       static Message[] sentMessages = new Message[100];
-       
-       //Stores message save for later
-       static Message[] storeMessages = new Message[100];
-       
-       //counts how many messages are in each array
-       static int sentCount = 0;
-       static int storedCount = 0;
+// Store messages that have been sent
+static Message[] sentMessages = new Message[100];
+
+// Stores messages saved for later
+static Message[] storeMessages = new Message[100];
+
+// Stores messages that have been disregarded
+static Message[] disregardedMessages = new Message[100];
+
+// Stores message hashes
+static String[] messageHashes = new String[100];
+
+// Stores message IDs
+static String[] messageIDs = new String[100];
+
+// Counts how many messages are in each array
+static int sentCount = 0;
+static int storedCount = 0;
+static int disregardedCount = 0;
 
        public static void main(String[] args) {
         
@@ -109,12 +119,13 @@ public class RegistrationAndLoginFeature {
        
     int option = 0;
 
-    while (option != 3) {
-        System.out.println("\n1) Send Messages");
-        System.out.println("2) Show recently sent messages");
-        System.out.println("Total messages sent: " + sentCount);
-        System.out.println("3) Quit");
-        System.out.print("Please select an option: ");
+    while (option != 4) {
+    System.out.println("\n1) Send Messages");
+    System.out.println("2) Show recently sent messages");
+    System.out.println("3) Stored Messages");
+    System.out.println("4) Quit");
+    System.out.println("Total messages sent: " + sentCount);
+    System.out.print("Please select an option: ");
 
         if (!input.hasNextInt()) {
             System.out.println("Please enter a number.");
@@ -242,6 +253,24 @@ case 2:
 
     break;
 
+case 3:
+
+    printStoredMessages();
+
+    break;
+
+case 4:
+
+    System.out.println("Goodbye!");
+
+    break;
+
+default:
+
+    System.out.println("Invalid option. Please try again.");
+
+    break;
+
 } // Ends switch(option)
     }
         }
@@ -323,5 +352,50 @@ public static String escapeJson(String text) {
                .replace("\n", "\\n")
                .replace("\r", "\\r")
                .replace("\t", "\\t");
+}
+public static void testMessageHashes() {
+
+    String[] testMessages = {
+        "Hi tonight",
+        "Hello how are you",
+        "This is a test message",
+        "Java programming is fun"
+    };
+
+    for (int i = 0; i < testMessages.length; i++) {
+
+        Message testMessage = new Message(
+                i + 1, "+27834557896", testMessages[i]);
+
+        System.out.println("Message: " + testMessages[i]);
+        System.out.println("Message ID: " + testMessage.getMessageID());
+        System.out.println("Message Hash: " + testMessage.getMessageHash());
+        System.out.println("-------------------------");
+    }
+}
+public static void printStoredMessages() {
+
+    System.out.println("\n--- Stored Messages ---");
+
+    if (storedCount == 0) {
+        System.out.println("No stored messages available.");
+        return;
+    }
+
+    for (int i = 0; i < storedCount; i++) {
+
+        Message storedMessage = storeMessages[i];
+
+        System.out.println("Message ID: "
+                + storedMessage.getMessageID());
+
+        System.out.println("Recipient: "
+                + storedMessage.getRecipient());
+
+        System.out.println("Message: "
+                + storedMessage.getMessage());
+
+        System.out.println("-------------------------");
+    }
 }
 }
