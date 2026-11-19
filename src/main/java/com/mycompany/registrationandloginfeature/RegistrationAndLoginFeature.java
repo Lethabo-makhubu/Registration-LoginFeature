@@ -119,11 +119,12 @@ static int disregardedCount = 0;
        
     int option = 0;
 
-    while (option != 4) {
+while (option != 5) {
     System.out.println("\n1) Send Messages");
     System.out.println("2) Show recently sent messages");
     System.out.println("3) Stored Messages");
-    System.out.println("4) Quit");
+    System.out.println("4) Search Message by ID");
+    System.out.println("5) Quit");
     System.out.println("Total messages sent: " + sentCount);
     System.out.print("Please select an option: ");
 
@@ -260,6 +261,15 @@ case 3:
     break;
 
 case 4:
+
+    System.out.print("Enter Message ID to search: ");
+    String searchID = input.nextLine();
+
+    searchMessageByID(searchID);
+
+    break;
+
+case 5:
 
     System.out.println("Goodbye!");
 
@@ -420,5 +430,39 @@ public static void displayLongestMessage() {
     System.out.println("\n--- Longest Stored Message ---");
     System.out.println("Message: " + longestMessage.getMessage());
     System.out.println("Length: " + longestMessage.getMessage().length());
+}
+public static void searchMessageByID(String searchID) {
+
+    boolean found = false;
+
+    // Search sent messages
+    for (int i = 0; i < sentCount; i++) {
+
+        if (sentMessages[i].getMessageID().equals(searchID)) {
+
+            System.out.println("Message found!");
+            System.out.println("Recipient: " + sentMessages[i].getRecipient());
+            System.out.println("Message: " + sentMessages[i].getMessage());
+
+            found = true;
+        }
+    }
+
+    // Search stored messages
+    for (int i = 0; i < storedCount; i++) {
+
+        if (storeMessages[i].getMessageID().equals(searchID)) {
+
+            System.out.println("Message found!");
+            System.out.println("Recipient: " + storeMessages[i].getRecipient());
+            System.out.println("Message: " + storeMessages[i].getMessage());
+
+            found = true;
+        }
+    }
+
+    if (!found) {
+        System.out.println("Message ID not found.");
+    }
 }
 }
