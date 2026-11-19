@@ -159,10 +159,15 @@ public String SentMessage(int choice) {
             if (RegistrationAndLoginFeature.sentCount
                     < RegistrationAndLoginFeature.sentMessages.length) {
 
-                RegistrationAndLoginFeature.sentMessages[
-                        RegistrationAndLoginFeature.sentCount] = this;
+int index = RegistrationAndLoginFeature.sentCount;
 
-                RegistrationAndLoginFeature.sentCount++;
+RegistrationAndLoginFeature.sentMessages[index] = this;
+
+RegistrationAndLoginFeature.messageIDs[index] = this.messageID;
+
+RegistrationAndLoginFeature.messageHashes[index] = this.messageHash;
+
+RegistrationAndLoginFeature.sentCount++;
 
                 return "Message successfully sent.";
 
@@ -171,7 +176,19 @@ public String SentMessage(int choice) {
             }
 
         case 2:
-            return "Message disregarded.";
+    if (RegistrationAndLoginFeature.disregardedCount
+            < RegistrationAndLoginFeature.disregardedMessages.length) {
+
+        RegistrationAndLoginFeature.disregardedMessages[
+                RegistrationAndLoginFeature.disregardedCount] = this;
+
+        RegistrationAndLoginFeature.disregardedCount++;
+
+        return "Message disregarded.";
+
+    } else {
+        return "Disregarded message storage is full.";
+    }
 
         case 3:
             if (RegistrationAndLoginFeature.storedCount
