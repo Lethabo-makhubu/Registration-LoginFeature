@@ -119,13 +119,14 @@ static int disregardedCount = 0;
        
     int option = 0;
 
-while (option != 6) {
+while (option != 7) {
     System.out.println("\n1) Send Messages");
     System.out.println("2) Show recently sent messages");
     System.out.println("3) Stored Messages");
     System.out.println("4) Search Message by ID");
     System.out.println("5) Search Messages by Recipient");
-    System.out.println("6) Quit");
+    System.out.println("6) Delete Message by Hash");
+    System.out.println("7) Quit");
     System.out.println("Total messages sent: " + sentCount);
     System.out.print("Please select an option: ");
 
@@ -280,6 +281,15 @@ case 5:
     break;
 
 case 6:
+
+    System.out.print("Enter Message Hash to delete: ");
+    String deleteHash = input.nextLine();
+
+    deleteMessageByHash(deleteHash);
+
+    break;
+
+case 7:
 
     System.out.println("Goodbye!");
 
@@ -507,6 +517,40 @@ public static void searchMessagesByRecipient(String recipient) {
 
     if (!found) {
         System.out.println("No messages found for this recipient.");
+    }
+}
+public static void deleteMessageByHash(String deleteHash) {
+
+    boolean found = false;
+
+    for (int i = 0; i < sentCount; i++) {
+
+        if (sentMessages[i].getMessageHash().equals(deleteHash)) {
+
+            // Move remaining messages one position backwards
+            for (int j = i; j < sentCount - 1; j++) {
+
+                sentMessages[j] = sentMessages[j + 1];
+                messageIDs[j] = messageIDs[j + 1];
+                messageHashes[j] = messageHashes[j + 1];
+            }
+
+            // Clear the last position
+            sentMessages[sentCount - 1] = null;
+            messageIDs[sentCount - 1] = null;
+            messageHashes[sentCount - 1] = null;
+
+            sentCount--;
+
+            System.out.println("Message successfully deleted.");
+
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        System.out.println("Message hash not found.");
     }
 }
 }
