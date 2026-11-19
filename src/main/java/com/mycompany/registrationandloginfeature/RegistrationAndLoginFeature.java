@@ -147,24 +147,35 @@ public class RegistrationAndLoginFeature {
 
         System.out.println("\nMessage " + (i + 1));
 
-        System.out.print("Enter recipient cellphone number: ");
-        String recipient = input.nextLine();
+String recipient;
+String recipientResult;
+String messageText;
+Message newMessage;
 
-        System.out.print("Enter your message: ");
-        String messageText = input.nextLine();
+do {
+    System.out.print("Enter recipient cellphone number: ");
+    recipient = input.nextLine();
 
-        // Create a message object
-        Message newMessage = new Message(sentCount + 1, recipient, messageText);
+    // Create a temporary message object to validate the number
+    newMessage = new Message(sentCount + 1, recipient, "");
 
-        // Check the recipient number
-String recipientResult = newMessage.checkRecipientCell();
+    // Check the recipient number
+    recipientResult = newMessage.checkRecipientCell();
 
-System.out.println("Validation result: " + recipientResult);
+    System.out.println("Validation result: " + recipientResult);
 
-if (!recipientResult.equals("Cell phone number successfully captured.")) {
-    System.out.println("Invalid recipient number.");
-    continue;
-}
+    if (!recipientResult.equals("Cell phone number successfully captured.")) {
+        System.out.println("Invalid recipient number. Please try again.");
+    }
+
+} while (!recipientResult.equals("Cell phone number successfully captured."));
+
+System.out.print("Enter your message: ");
+messageText = input.nextLine();
+
+// Create the final message object
+newMessage = new Message(sentCount + 1, recipient, messageText);
+
 
         // Check the message length
 String lengthResult = newMessage.checkMessageLength();
